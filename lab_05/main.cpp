@@ -6,22 +6,22 @@
 
 using namespace std;
 
-const int MAX_SIZE = 1000;
+const int MAX_1D_SIZE = 1000;
 
-int main() {
-    int arr[MAX_SIZE];
+void run_1d_array() {
+    int arr[MAX_1D_SIZE];
     int n = 0;
 
-    cout << "====================================================\n";
+    cout << "\n====================================================\n";
     cout << "         CHUONG TRINH CHAY CAC HAM MANG 1 CHIEU     \n";
     cout << "====================================================\n\n";
 
     // 1. Nhập và in mảng
     cout << "--- 1. NHAP VA XUAT MANG ---\n";
     cout << "Nhap so luong phan tu n: ";
-    if (!(cin >> n) || n <= 0 || n >= MAX_SIZE) {
+    if (!(cin >> n) || n <= 0 || n >= MAX_1D_SIZE) {
         cout << "So luong phan tu khong hop le!\n";
-        return 1;
+        return;
     }
 
     cout << "Nhap " << n << " phan tu cua mang: ";
@@ -116,8 +116,107 @@ int main() {
     cout << "\n\n";
 
     cout << "====================================================\n";
-    cout << "                 HOAN THANH KIEM TRA                \n";
+    cout << "              HOAN THANH MANG 1 CHIEU               \n";
+    cout << "====================================================\n\n";
+}
+
+void run_2d_array() {
+    int arr_2d[MAX_ROWS][MAX_COLS];
+    int rows = 0, cols = 0;
+
+    cout << "\n====================================================\n";
+    cout << "         CHUONG TRINH CHAY CAC HAM MANG 2 CHIEU     \n";
+    cout << "====================================================\n\n";
+
+    // 1. Nhập số hàng, số cột và mảng 2 chiều
+    cout << "--- 1. NHAP VA XUAT MANG 2 CHIEU ---\n";
+    cout << "Nhap so hang (rows): ";
+    cin >> rows;
+    cout << "Nhap so cot (cols): ";
+    cin >> cols;
+
+    if (rows <= 0 || rows > MAX_ROWS || cols <= 0 || cols > MAX_COLS) {
+        cout << "Kich thuoc mang khong hop le!\n";
+        return;
+    }
+
+    cout << "Nhap " << rows * cols << " phan tu cho mang 2 chieu:\n";
+    input_2d(arr_2d, rows, cols);
+
+    cout << "Mang 2 chieu vua nhap:\n";
+    print_2d(arr_2d, rows, cols);
+    cout << "\n\n";
+
+    // 2. Tính tổng và tích các phần tử trong mảng 2 chiều
+    cout << "--- 2. TINH TONG VA TICH MANG 2 CHIEU ---\n";
+    long long sum_2d = compute_2d(arr_2d, rows, cols, '+');
+    long long prod_2d = compute_2d(arr_2d, rows, cols, '*');
+    cout << "Tong cac phan tu: " << sum_2d << "\n";
+    cout << "Tich cac phan tu: " << prod_2d << "\n\n";
+
+    // 3. Tính giá trị trung bình cộng mảng 2 chiều
+    cout << "--- 3. TINH TRUNG BINH CONG (MEAN) ---\n";
+    cout << "Gia tri trung binh: " << fixed << setprecision(2) << compute_mean_2d(arr_2d, rows, cols) << "\n\n";
+
+    // 4. Kiểm tra tồn tại giá trị trong mảng 2 chiều
+    cout << "--- 4. KIEM TRA TON TAI PHAN TU (CHECK EXIST) ---\n";
+    int val_check;
+    cout << "Nhap gia tri can kiem tra: ";
+    cin >> val_check;
+    if (check_exist(arr_2d, rows, cols, val_check)) {
+        cout << "Gia tri " << val_check << " CO ton tai trong mang 2 chieu.\n\n";
+    } else {
+        cout << "Gia tri " << val_check << " KHONG ton tai trong mang 2 chieu.\n\n";
+    }
+
+    // 5. Tìm giá trị lớn nhất và nhỏ nhất trong mảng 2 chiều
+    cout << "--- 5. TIM GIA TRI LON NHAT VA NHO NHAT ---\n";
+    int max_val = get_max_min_2d(arr_2d, rows, cols, true);
+    int min_val = get_max_min_2d(arr_2d, rows, cols, false);
+    cout << "Gia tri lon nhat (Max): " << max_val << "\n";
+    cout << "Gia tri nho nhat (Min): " << min_val << "\n\n";
+
     cout << "====================================================\n";
+    cout << "              HOAN THANH MANG 2 CHIEU               \n";
+    cout << "====================================================\n\n";
+}
+
+int main() {
+    int choice = -1;
+
+    while (true) {
+        cout << "====================================================\n";
+        cout << "                   MENU CHUONG TRINH                \n";
+        cout << "====================================================\n";
+        cout << "1. Chay bai tap Mang 1 chieu (1D Array)\n";
+        cout << "2. Chay bai tap Mang 2 chieu (2D Array)\n";
+        cout << "0. Thoat chuong trinh\n";
+        cout << "====================================================\n";
+        cout << "Nhap lua chon cua ban (0-2): ";
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            string dummy;
+            getline(cin, dummy);
+            cout << "Lua chon khong hop le, vui long nhap lai!\n\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                run_1d_array();
+                break;
+            case 2:
+                run_2d_array();
+                break;
+            case 0:
+                cout << "Tam biet!\n";
+                return 0;
+            default:
+                cout << "Lua chon khong hop le, vui long chon lai!\n\n";
+                break;
+        }
+    }
 
     return 0;
 }
