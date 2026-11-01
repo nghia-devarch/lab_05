@@ -30,16 +30,16 @@ bool remove_at_index(int arr[], int& n, int index) {
     n--;
     return true;
 }
-long long compute_array(int arr[], int n, char op = '+') {
-    if (op='+') 
+long long compute_array(int arr[], int n, char op) {
+    if (op=='+') 
     {long long s=0;
-    for (int i=1; i<n; i++) {
+    for (int i=0; i<n; i++) {
         s+=arr[i];
     }
     return s;}
     else 
-    {long long s=0;
-    for (int i=1; i<n; i++) {
+    {long long s=1;
+    for (int i=0; i<n; i++) {
         s*=arr[i];
     }
     return s;}
@@ -47,10 +47,10 @@ long long compute_array(int arr[], int n, char op = '+') {
 
 float compute_mean(int arr[], int n) {
     float r=0;
-    for (int i=1; i<n; i++) {
-        r+=(arr[i]/n);
+    for (int i=0; i<n; i++) {
+        r+=(arr[i]);
     }
-    return round_to_decimal(r, 2);
+    return round_to_decimal((float)r/n, 2);
 }
 
 // true tang dan false giam dan
@@ -66,14 +66,12 @@ void sort(int a[], int n, bool G) {
 }
 
 float compute_median(int arr[], int n) {
-    if (n%2==1) return arr[n/2+1];
-    else {
-        sort(arr, n, 1);
-        return ((arr[n/2]+arr[n/2+1])/2);
-    }
+    sort(arr, n, 1);
+    if (n%2==1) return arr[n/2];
+    else return round_to_decimal((arr[n / 2] + arr[n / 2 - 1]) / 2.0f, 2);
 }
 
-int get_max_min(int arr[], int n, bool max = true) {
+int get_max_min(int arr[], int n, bool max) {
     sort(arr, n, 1);
     if (max) return arr[n-1]; else return arr[0];
 }
