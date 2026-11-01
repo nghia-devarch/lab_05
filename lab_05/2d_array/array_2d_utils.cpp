@@ -42,6 +42,7 @@ long long compute_2d(int arr[][MAX_COLS], int rows, int cols, char op) {
             }
         return r;
     }
+    return 1;
 }
 
 float compute_mean_2d(int arr[][MAX_COLS], int rows, int cols) {
@@ -69,4 +70,5 @@ int get_max_min_2d(int arr[][MAX_COLS], int rows, int cols, bool max) {
             }
         return r;
     }
+    return arr[0][0];
 }
