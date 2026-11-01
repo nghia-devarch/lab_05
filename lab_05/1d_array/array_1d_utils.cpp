@@ -1,5 +1,5 @@
 #include "array_1d_utils.h"
-#include "lab_05/utils/format_utils.h"
+#include "format_utils.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
